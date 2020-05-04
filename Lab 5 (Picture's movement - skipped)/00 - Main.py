@@ -1,5 +1,6 @@
 import graph
 from math import *
+from Tkinter import *
 
 
 def main():
@@ -18,21 +19,13 @@ def main():
         window(x0, y0, window_width, window_indent, 5)
         x0 -= (window_width + window_indent)
 
+    my_pic = graph.canvas()
+    graph.canvasSize(xmax, ymax)
+
     clew(200, 640, 50, 1)
-    clew(400, 600, 30, - 1)
-    clew(300, 500, 30, - 1)
-    clew(150, 370, 15, 1)
-    clew(70, 600, 15, 1)
-    clew(425, 400, 15, - 1)
-
     cat(350, 300, 80, 1, 'brown')
-    cat(150, 450, 80, -1, 'grey')
 
-    cat(100, 350, 30, -1, 'brown')
-    cat(450, 500, 30, -1, 'brown')
-    cat(100, 650, 30, -1, 'grey')
-    cat(400, 650, 30, 1, 'grey')
-    cat(350, 550, 30, 1, 'brown')
+    my_pic.pack()
 
     graph.run()
 
@@ -130,13 +123,14 @@ def cat_head(x0, y0, size, direction, color):
 
     graph.penColor(0, 0, 0)
     graph.brushColor(225, 170, 135)
-    nose = [(x1 + head_size / 15, y1 + head_size / 3), (x1 - head_size / 15, y1 + head_size / 3), (x1, y1 + head_size / 3 + head_size / 10)]
+    nose = [(x1 + head_size / 15, y1 + head_size / 3), (x1 - head_size / 15, y1 + head_size / 3),
+            (x1, y1 + head_size / 3 + head_size / 10)]
     graph.polygon(nose)
 
     graph.line(x1, y1 + head_size / 3 + head_size / 10, x1, y1 + head_size / 2)
     sector(x1 - head_size / 8, y1 + head_size / 2, head_size / 8, 0, pi / 2 + pi / 6, 1)
     sector(x1 + head_size / 8, y1 + head_size / 2, head_size / 8, pi / 2 - pi / 6, pi, 1)
-    
+
     cat_ears(x1, y1, head_size, color)
     cat_mustache(x1, y1, head_size)
 
@@ -230,7 +224,7 @@ def cat_mustache(x1, y1, head_size):
     pass
 
 
-def clew (x0, y0, radius, direction):
+def clew(x0, y0, radius, direction):
     """Drawing clue with center in (x0, y0), correspondent radius
     and direction (1 - right, -1 - left)."""
     if direction == 1:
@@ -248,7 +242,8 @@ def clew (x0, y0, radius, direction):
 
         sector(x0 + radius / 4, y0 + radius / 2, radius, pi, (3 / 2) * pi - pi / 6, 1)
         sector(x0 + radius / 4 + 2 * indent, y0 + radius / 2 + 2 * indent, radius, pi, (3 / 2) * pi - pi / 6, 1)
-        sector(x0 + radius / 4 + 4 * indent, y0 + radius / 2 + 4 * indent, radius, pi + pi / 10, (3 / 2) * pi - pi / 6, 1)
+        sector(x0 + radius / 4 + 4 * indent, y0 + radius / 2 + 4 * indent, radius, pi + pi / 10, (3 / 2) * pi - pi / 6,
+               1)
 
         graph.penColor(140, 120, 70)
 
@@ -270,12 +265,15 @@ def clew (x0, y0, radius, direction):
         indent = radius / 10
 
         sector(x0 - direction * radius / 5, y0 + radius / 5, radius, pi, (3 / 2) * pi, 1)
-        sector(x0 - direction * (radius / 5 + indent), y0 + radius / 5 + indent, radius, pi, (3 / 2) * pi, 1,)
-        sector(x0 - direction * (radius / 5 + 2.5 * indent), y0 + radius / 5 + 2.5 * indent, radius, pi, (3 / 2) * pi, 1,)
+        sector(x0 - direction * (radius / 5 + indent), y0 + radius / 5 + indent, radius, pi, (3 / 2) * pi, 1, )
+        sector(x0 - direction * (radius / 5 + 2.5 * indent), y0 + radius / 5 + 2.5 * indent, radius, pi, (3 / 2) * pi,
+               1, )
 
         sector(x0 + direction * radius / 4, y0 + radius / 2, radius, (3 / 2) * pi + pi / 6, 2 * pi, 1)
-        sector(x0 + direction * (radius / 4 + 2 * indent), y0 + radius / 2 + 2 * indent, radius, (3 / 2) * pi + pi / 6, 2 * pi, 1)
-        sector(x0 + direction * (radius / 4 + 4 * indent), y0 + radius / 2 + 4 * indent, radius, (3 / 2) * pi + pi / 6, 2 * pi - pi / 10, 1)
+        sector(x0 + direction * (radius / 4 + 2 * indent), y0 + radius / 2 + 2 * indent, radius, (3 / 2) * pi + pi / 6,
+               2 * pi, 1)
+        sector(x0 + direction * (radius / 4 + 4 * indent), y0 + radius / 2 + 4 * indent, radius, (3 / 2) * pi + pi / 6,
+               2 * pi - pi / 10, 1)
 
         graph.penColor(140, 120, 70)
 
@@ -285,7 +283,7 @@ def clew (x0, y0, radius, direction):
         sector(x1, y1, smr, 0, pi - pi / 3, 2)
         sector(x1 - direction * 2 * smr, y1, smr, pi, 2 * pi, 2)
         sector(x1 - direction * (2 * smr + (3 / 2) * smr), y1, smr / 2, 0, pi, 2)
-        
+
 
 def oval(x0, y0, radius, compression, alpha):
     """Drawing oval with center in (x0, y0), stated radius,
@@ -318,6 +316,19 @@ def sector(x0, y0, radius, start, end, compression):
         t += pi / 180
 
     graph.polyline(points)
+
+
+def keyPressed(event):
+    if event.keycode == graph.VK_LEFT:
+        graph.moveObjectBy(obj, -5, 0)
+    elif event.keycode == graph.VK_RIGHT:
+        graph.moveObjectBy(obj, 5, 0)
+    elif event.keycode == graph.VK_UP:
+        graph.moveObjectBy(obj, 0, -5)
+    elif event.keycode == graph.VK_DOWN:
+        graph.moveObjectBy(obj, 0, 5)
+    elif event.keycode == graph.VK_ESCAPE:
+        graph.close()
 
 
 main()
