@@ -1,0 +1,5 @@
+Score: 260	Player: Anton
+Score: 090	Player: DDD
+Score: 060	Player: AAA
+Score: 040	Player: AAA
+Score: -10	Player: 
